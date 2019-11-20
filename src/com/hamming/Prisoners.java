@@ -50,7 +50,7 @@ public class Prisoners {
         SentencedFor = sentencedFor;
     }
 
-    public boolean isSolitary() {
+    public boolean getSolitary() {
         return Solitary;
     }
 
