@@ -1,6 +1,6 @@
 package com.hamming;
 
-public class Prisoners {
+public class Prisoner {
 
     private String Name;
     private String Crime;
@@ -9,7 +9,7 @@ public class Prisoners {
     private boolean Solitary;
 
 
-    public Prisoners(String name, String crime, int age, int sentencedFor, boolean solitary){
+    public Prisoner(String name, String crime, int age, int sentencedFor, boolean solitary){
         this.Name = name;
         this.Crime = crime;
         this.Age = age;
@@ -22,40 +22,20 @@ public class Prisoners {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
-    }
-
     public String getCrime() {
         return Crime;
-    }
-
-    public void setCrime(String crime) {
-        Crime = crime;
     }
 
     public int getAge() {
         return Age;
     }
 
-    public void setAge(int age) {
-        Age = age;
-    }
-
     public int getSentencedFor() {
         return SentencedFor;
     }
 
-    public void setSentencedFor(int sentencedFor) {
-        SentencedFor = sentencedFor;
-    }
-
     public boolean getSolitary() {
         return Solitary;
-    }
-
-    public void setSolitary(boolean solitary) {
-        Solitary = solitary;
     }
 
 

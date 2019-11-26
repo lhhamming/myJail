@@ -1,14 +1,13 @@
 package com.hamming;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Prison {
 
-    private ArrayList<Prisoners> prisoners = new ArrayList<>();
+    private ArrayList<Prisoner> prisoners = new ArrayList<>();
 
     public void addPrisoner(String name, String crime, int age, int sentencedFor, boolean solitary){
-        Prisoners prisoner = new Prisoners(name,crime,age,sentencedFor,solitary);
+        Prisoner prisoner = new Prisoner(name,crime,age,sentencedFor,solitary);
         prisoners.add(prisoner);
     }
 
@@ -19,9 +18,9 @@ public class Prison {
 
     public String getPrisonersByAge(int age) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < prisoners.size(); i++) {
-            if(prisoners.get(i).getAge() >= 20){
-                sb.append(prisoners.get(i).toString() + "\n");
+        for (Prisoner p : prisoners){
+            if(p.getAge() >= age){
+                sb.append(p.toString() + "\n");
             }
         }
         return sb.toString();
@@ -29,9 +28,9 @@ public class Prison {
 
     public String getPrisonersByCrime(String crime) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < prisoners.size(); i++) {
-            if(prisoners.get(i).getCrime().equals(crime)){
-                sb.append(prisoners.get(i).toString() + "\n");
+        for (Prisoner p : prisoners){
+            if(p.getCrime().equals(crime)){
+                sb.append(p.toString() + "\n");
             }
         }
         return sb.toString();
@@ -51,7 +50,7 @@ public class Prison {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < prisoners.size(); i++) {
             if(prisoners.get(i).getSolitary()){
-                if(prisoners.get(i).getAge() >= 20){
+                if(prisoners.get(i).getAge() >= Age){
                 sb.append(prisoners.get(i).toString() + "\n");
                 }
             }
@@ -79,20 +78,21 @@ public class Prison {
         return average;
     }
 
-    public void addPrisonersBulk(ArrayList<Prisoners> prisonersBulk) {
-        for (int i = 0; i < prisonersBulk.size(); i++) {
-            Prisoners prisoner = new Prisoners(prisonersBulk.get(i).getName(),prisonersBulk.get(i).getCrime(),prisonersBulk.get(i).getAge(),prisonersBulk.get(i).getSentencedFor(),prisonersBulk.get(i).getSolitary());
+    public void addPrisonersBulk(ArrayList<Prisoner> prisonerBulk) {
+        for (Prisoner p : prisonerBulk){
+            Prisoner prisoner = new Prisoner(p.getName(),p.getCrime(),p.getAge(),p.getSentencedFor(),p.getSolitary());
             prisoners.add(prisoner);
         }
-
     }
 
     public String letPrisonerFree(String userInput) {
-        for (int i = 0; i < prisoners.size(); i++) {
-            if(prisoners.get(i).getName().equals(userInput)){
-                prisoners.remove(i);
+        int tempIndex = 0;
+        for (Prisoner p : prisoners){
+            if(p.getName().equals(userInput)){
+                prisoners.remove(tempIndex);
                 return "the prisoner has been set free!";
             }
+            tempIndex++;
         }
         return "the prisoner has not been found! sorry.";
     }
