@@ -7,6 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 	Prison prison = new Prison();
+	/*
 	prison.addPrisoner("Luuk Hamming", "Murder", 19,40,false);
 	prison.addPrisoner("Joyce Richter", "Robbed a bank", 20,5,false);
 	prison.addPrisoner("Sven Rolleman", "Murder", 21,5,false);
@@ -44,5 +45,24 @@ public class Main {
 		String prisonerToBeLetFree = userInput.nextLine();
 		System.out.println(prison.letPrisonerFree(prisonerToBeLetFree));
 		System.out.println(prison);
+
+	 */
+	/*
+        prison.addPrisoner("Luuk Hamming", "Murder", 19,40,false);
+        prison.addPrisoner("Joyce Richter", "Robbed a bank", 20,5,false);
+        prison.addPrisoner("Sven Rolleman", "Murder", 21,5,false);
+        prison.addPrisoner("Thijmen Hogenkamp", "Loli Rape", 20,5,true);
+        prison.addPrisoner("Pim Wingelaar", "Illegal Internet Usage", 20,50,false);
+        prison.addPrisoner("Felix Ruwe", "Loli Rape", 19,16,true);
+        System.out.println(prison.Cells());
+        System.out.println(prison.getPrisonersAmountHoldingCell());
+        System.out.println(prison.getHoldingCellMaxCapacity());
+        System.out.println(prison.isHoldingCellFull());
+        Prisoner p = new Prisoner("Luuk Hamming", "Murder", 19,40,false);
+        prison.HoldingCellAddPrisoner(p);
+        System.out.println(prison.HoldingCell());
+	 */
+	Menu m = new Menu();
+	m.startMenu();
     }
 }
