@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Prison {
 
-    private ArrayList<Prisoner> prisoners = new ArrayList<>();
+    //The prisoners Array is now obsolete. it has been replaced by the cells array.
+    //private ArrayList<Prisoner> prisoners = new ArrayList<>();
     private ArrayList<Cell> cells = new ArrayList<>();
     private Holdingcell hc = new Holdingcell(5);
 
@@ -16,101 +17,33 @@ public class Prison {
     }
 
     public void addPrisoner(Prisoner p){
-        if(cells != null){
-            int tempindex = 0;
-            for (Cell c : cells){
-                if(tempindex >= cells.size()){
-                    Cell cell = new Cell(p);
-                    cells.add(cell);
-                }
-                else{
-                    if(c.getPrisoner() != null){
-                        //There is someone in the prison cell.
-                        tempindex++;
-                    }
-                    else{
-                        Cell cell = new Cell(p);
-                        cells.get(tempindex).setPrisoner(p);
-                        //There isnt someone on that specefic spot.
-                    }
-                }
-
-
-            }
-        }else{
+        //This function will also check for empty prison cells so a prisoner can be put into an empty cell.
+        if(cells.size() == 0){
+            //If there is no one in the prison then we can add them right away
             Cell cell = new Cell(p);
             cells.add(cell);
         }
-
-    }
-
-    public String getPrisonersByAge(int age) {
-        StringBuilder sb = new StringBuilder();
-        for (Prisoner p : prisoners){
-            if(p.getAge() >= age){
-                sb.append(p.toString() + "\n");
-            }
-        }
-        return sb.toString();
-    }
-
-    public String getPrisonersByCrime(String crime) {
-        StringBuilder sb = new StringBuilder();
-        for (Prisoner p : prisoners){
-            if(p.getCrime().equals(crime)){
-                sb.append(p.toString() + "\n");
-            }
-        }
-        return sb.toString();
-    }
-
-    public String getPrisonersInSolitary() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < prisoners.size(); i++) {
-            if(prisoners.get(i).getSolitary()){
-                sb.append(prisoners.get(i).toString() + "\n");
-            }
-        }
-        return sb.toString();
-    }
-
-    public String getPrisonersInSolitaryandAge(int Age) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < prisoners.size(); i++) {
-            if(prisoners.get(i).getSolitary()){
-                if(prisoners.get(i).getAge() >= Age){
-                sb.append(prisoners.get(i).toString() + "\n");
+        else {
+            //There are prisoners in the cells.
+            //Lets check for an empty one.
+            int tempindex = 0;
+            for (Cell cell: cells){
+                //If the index is bigger than the amount of cells that means that there are no empty ones, we can just add the prisoners in a new cell
+                if(tempindex > cells.size()){
+                    Cell newCell = new Cell(p);
+                    cells.add(newCell);
+                }
+                //Check if the cell has an prisoner or not.
+                if (cell.getPrisoner() != null) {
+                    //There is someone in the prison cell.
+                    tempindex++;
+                } else {
+                    cells.get(tempindex).setPrisoner(p);
+                    //There isnt someone on that specefic spot.
                 }
             }
         }
-        return sb.toString();
-    }
 
-    public double getAverageSentecedYears() {
-        int total =0;
-        for (int i = 0; i < prisoners.size(); i++) {
-            total += prisoners.get(i).getSentencedFor();
-        }
-        double average = total / prisoners.size();
-
-        return average;
-    }
-
-    public double getAverageAge() {
-        int total =0;
-        for (int i = 0; i < prisoners.size(); i++) {
-            total += prisoners.get(i).getAge();
-        }
-        double average = total / prisoners.size();
-
-        return average;
-    }
-
-    public void addPrisonersBulk(ArrayList<Prisoner> prisonerBulk) {
-        for (Prisoner p : prisonerBulk){
-            Cell c = new Cell(p);
-            cells.add(c);
-        }
     }
 
     public String letPrisonerFree(String userInput) {
@@ -180,8 +113,87 @@ public class Prison {
         }
     }
 
+    public ArrayList<Prisoner> getPrisonersBulk(){
+        ArrayList<Prisoner> prisoners = new ArrayList<>();
+        for (Cell cell : cells){
+            prisoners.add(cell.getPrisoner());
+        }
+        return prisoners;
+    }
+
     @Override
     public String toString(){
         return cells.toString();
     }
+
+    public void addPrisonersBulk(ArrayList<Prisoner> prisonerBulk) {
+        for (Prisoner p : prisonerBulk){
+            Cell c = new Cell(p);
+            cells.add(c);
+        }
+    }
+
+        /*
+    public String getPrisonersByAge(int age) {
+        StringBuilder sb = new StringBuilder();
+        for (Prisoner p : prisoners){
+            if(p.getAge() >= age){
+                sb.append(p.toString() + "\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    public String getPrisonersByCrime(String crime) {
+        StringBuilder sb = new StringBuilder();
+        for (Prisoner p : prisoners){
+            if(p.getCrime().equals(crime)){
+                sb.append(p.toString() + "\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    public String getPrisonersInSolitary() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < prisoners.size(); i++) {
+            if(prisoners.get(i).getSolitary()){
+                sb.append(prisoners.get(i).toString() + "\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    public String getPrisonersInSolitaryandAge(int Age) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < prisoners.size(); i++) {
+            if(prisoners.get(i).getSolitary()){
+                if(prisoners.get(i).getAge() >= Age){
+                sb.append(prisoners.get(i).toString() + "\n");
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    public double getAverageSentecedYears() {
+        int total =0;
+        for (int i = 0; i < prisoners.size(); i++) {
+            total += prisoners.get(i).getSentencedFor();
+        }
+        double average = total / prisoners.size();
+
+        return average;
+    }
+
+    public double getAverageAge() {
+        int total =0;
+        for (int i = 0; i < prisoners.size(); i++) {
+            total += prisoners.get(i).getAge();
+        }
+        double average = total / prisoners.size();
+
+        return average;
+    }
+     */
 }

@@ -1,5 +1,7 @@
 package com.hamming;
 
+import org.json.JSONObject;
+
 public class Prisoner {
 
     private String Name;
@@ -16,6 +18,14 @@ public class Prisoner {
         this.SentencedFor = sentencedFor;
         this.Solitary = solitary;
 
+    }
+
+    public Prisoner(JSONObject jsonObject) {
+        this.Name = jsonObject.getString("name");
+        this.Crime = jsonObject.getString("crime");
+        this.Age = jsonObject.getInt("age");
+        this.SentencedFor = jsonObject.getInt("sentenced_for");
+        this.Solitary = jsonObject.getBoolean("solitary");
     }
 
     public String getName() {
@@ -41,7 +51,17 @@ public class Prisoner {
 
     @Override
     public String toString(){
-        return "\n"+ Name + "\n" + "Crime: " + Crime + "\n" + "Age: " + Age + "\n" + "Sentenced for years: " + SentencedFor + "\n" + "In solitary? " + Solitary;
+        return "\n"+ Name + " " + "Crime: " + Crime + " " + "Age: " + Age + " " + "Sentenced for years: " + SentencedFor + " " + "In solitary? " + Solitary;
     }
 
+    public JSONObject toJSONObject() {
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("name", Name);
+        jsonObj.put("crime", Crime);
+        jsonObj.put("age", Age);
+        jsonObj.put("sentenced_for", SentencedFor);
+        jsonObj.put("solitary", Solitary);
+        return jsonObj;
+
+    }
 }
